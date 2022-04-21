@@ -11,15 +11,9 @@ const COLORS = [
   "white",
 ];
 
-const colorCode = (color: string): number => COLORS.indexOf(color);
+const colorCode = (color) => COLORS.indexOf(color);
 
-interface IUnits {
-  name: string;
-  numberOfZeros: number;
-  representation: string;
-}
-
-const UNITS: IUnits[] = [
+const UNITS = [
   {
     name: "giga",
     numberOfZeros: 9,
@@ -37,17 +31,13 @@ const UNITS: IUnits[] = [
   },
 ];
 
-export const decodedResistorValue = ([
-  tens,
-  ones,
-  exponent,
-]: string[]): string => {
+export const decodedResistorValue = ([tens, ones, exponent]) => {
   const numericValue =
     (colorCode(tens) * 10 + colorCode(ones)) * 10 ** colorCode(exponent);
   const stringifiedValue = numericValue.toString();
 
   let readableUnit = "";
-  let readableValue: string = stringifiedValue;
+  let readableValue = stringifiedValue;
 
   for (const unit of UNITS) {
     if (stringifiedValue.endsWith(unit.representation)) {
